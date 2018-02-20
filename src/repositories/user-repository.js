@@ -9,7 +9,7 @@ exports.get = async() => {
 }
 
 exports.getById = async(id) => {
-    let res = await User.findById(id);
+    let res = await User.findById(id, 'name email active roles created');
     return res;
 }
 
