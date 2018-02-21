@@ -41,6 +41,14 @@ $ npm install
 $ node www/server
 ```
 
+### Documentation
+
+You can see the API documentation on **doc/** folder. If you want to re-generate the documentation, you need to run this comand:
+
+```sh
+$ apidoc -i src/controllers
+```
+
 ### Development
 
 Want to contribute? Great!
