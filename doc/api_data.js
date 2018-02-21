@@ -43,7 +43,33 @@ define({ "api": [
             "description": "<p>User data.</p>"
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"token\": \"some-long-key\",\n  \"data\": {\n     \"name\": \"Luis Filipe\",\n     \"email\": \"lionphilips@gmail.com\"\n  }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UserNotFound",
+            "description": "<p>The id of the User was not found.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"User Not Found\"\n}",
+          "type": "json"
+        }
+      ]
     },
     "version": "0.0.0",
     "filename": "src/controllers/user-controller.js",
@@ -83,17 +109,22 @@ define({ "api": [
       }
     },
     "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "message",
-            "description": "<p>Confirmation message</p>"
-          }
-        ]
-      }
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"message\": \"User created\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 500 Internal Server Error\n{\n   \"errors\": {}\n}",
+          "type": "json"
+        }
+      ]
     },
     "version": "0.0.0",
     "filename": "src/controllers/user-controller.js",
@@ -148,9 +179,23 @@ define({ "api": [
             "optional": false,
             "field": "roles",
             "description": "<p>Roles of the User.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Datetime",
+            "optional": false,
+            "field": "created",
+            "description": "<p>Date user was created.</p>"
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n     \"name\": \"Luis Filipe\",\n      \"email\": \"lionphilips@gmail.com\",\n      \"active\": true,\n      \"roles\": [\"user\", \"admin\"],\n      \"created\": \"2018-01-01 11:00:00\",\n}",
+          "type": "json"
+        }
+      ]
     },
     "version": "0.0.0",
     "filename": "src/controllers/user-controller.js",
@@ -192,9 +237,23 @@ define({ "api": [
             "optional": false,
             "field": "roles",
             "description": "<p>Roles of the User.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Datetime",
+            "optional": false,
+            "field": "created",
+            "description": "<p>Date user was created.</p>"
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n[\n     {\n         \"name\": \"Luis Filipe\",\n         \"email\": \"lionphilips@gmail.com\",\n         \"active\": true,\n         \"roles\": [\"user\", \"admin\"],\n         \"created\": \"2018-01-01 11:00:00\",\n     }\n]",
+          "type": "json"
+        }
+      ]
     },
     "version": "0.0.0",
     "filename": "src/controllers/user-controller.js",
@@ -237,7 +296,33 @@ define({ "api": [
             "description": "<p>User data.</p>"
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"token\": \"some-long-key\",\n  \"data\": {\n     \"name\": \"Luis Filipe\",\n     \"email\": \"lionphilips@gmail.com\"\n  }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UserNotFound",
+            "description": "<p>The id of the User was not found.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"User Not Found\"\n}",
+          "type": "json"
+        }
+      ]
     },
     "version": "0.0.0",
     "filename": "src/controllers/user-controller.js",

@@ -2,7 +2,6 @@
 
 const repository = require('../repositories/user-repository');
 const validationContract = require('../validators/validator');
-const emailService = require('../services/email-service');
 const authService = require('../services/auth-service');
 const md5 = require('md5');
 
@@ -15,6 +14,20 @@ const md5 = require('md5');
  * @apiSuccess {String} email  Email address of the User.
  * @apiSuccess {Boolean} active  Status of the User.
  * @apiSuccess {Object[]} roles  Roles of the User.
+ * @apiSuccess {Datetime} created  Date user was created.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     [
+ *          {
+ *              "name": "Luis Filipe",
+ *              "email": "lionphilips@gmail.com",
+ *              "active": true,
+ *              "roles": ["user", "admin"],
+ *              "created": "2018-01-01 11:00:00",
+ *          }
+ *     ]
+ *
  */
 exports.get = async(req, res, next) => {
     try {
@@ -36,6 +49,18 @@ exports.get = async(req, res, next) => {
  * @apiSuccess {String} email  Email address of the User.
  * @apiSuccess {Boolean} active  Status of the User.
  * @apiSuccess {Object[]} roles  Roles of the User.
+ * @apiSuccess {Datetime} created  Date user was created.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *          "name": "Luis Filipe",
+ *           "email": "lionphilips@gmail.com",
+ *           "active": true,
+ *           "roles": ["user", "admin"],
+ *           "created": "2018-01-01 11:00:00",
+ *     }
+ *
  */
 exports.getById = async(req, res, next) => {
     try {
@@ -55,14 +80,24 @@ exports.getById = async(req, res, next) => {
  * @apiParam {String} email User email address.
  * @apiParam {String} password User password.
  *
- * @apiSuccess {String} message Confirmation message
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "message": "User created"
+ *     }
+ *
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 500 Internal Server Error
+ *     {
+ *        "errors": {}
+ *     }
  */
 exports.post = async(req, res, next) => {
     try {
         let contract = new validationContract();
-        contract.hasMinLen(req.body.name, 3, 'O nome deve conter pelo menos 3 caracteres');
-        contract.isEmail(req.body.email, 'Email inválido');
-        contract.hasMinLen(req.body.password, 6, 'A senha deve conter pelo menos 6 caracteres');
+        contract.hasMinLen(req.body.name, 3, 'The name has to be at least 3 characters');
+        contract.isEmail(req.body.email, 'Invalid email');
+        contract.hasMinLen(req.body.password, 6, 'The password has to be at least 3 characters');
 
         if(!contract.isValid()) {
             res.status(400).send(contract.errors()).end();
@@ -76,9 +111,7 @@ exports.post = async(req, res, next) => {
             roles: ["user"]
         });
 
-        emailService.send(req.body.email, 'Seja Bem-vindo ao Node Store', global.EMAIL_TMPL.replace('{0}', req.body.name))
-
-        res.status(200).send({message: 'Cliente cadastrado com sucesso'});
+        res.status(200).send({message: 'User created'});
     } catch(e) {
         res.status(500).send({error: e});
     }
@@ -94,6 +127,24 @@ exports.post = async(req, res, next) => {
  *
  * @apiSuccess {String} token JWT Token.
  * @apiSuccess {Object} data User data.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "token": "some-long-key",
+ *       "data": {
+ *          "name": "Luis Filipe",
+ *          "email": "lionphilips@gmail.com"
+ *       }
+ *     }
+ *
+ * @apiError UserNotFound The id of the User was not found.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "error": "User Not Found"
+ *     }
  */
 exports.authenticate = async(req, res, next) => {
     try {
@@ -103,7 +154,7 @@ exports.authenticate = async(req, res, next) => {
         });
 
         if(!customer) {
-            res.status(400).send({error: 'Usuário ou senha inválidos!'});
+            res.status(404).send({error: 'User not found'});
             return;
         }
 
@@ -135,6 +186,23 @@ exports.authenticate = async(req, res, next) => {
  *
  * @apiSuccess {String} token New JWT Token.
  * @apiSuccess {Object} data User data.
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "token": "some-long-key",
+ *       "data": {
+ *          "name": "Luis Filipe",
+ *          "email": "lionphilips@gmail.com"
+ *       }
+ *     }
+ *
+ * @apiError UserNotFound The id of the User was not found.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "error": "User Not Found"
+ *     }
  */
 exports.refreshToken = async(req, res, next) => {
     try {
@@ -143,7 +211,7 @@ exports.refreshToken = async(req, res, next) => {
         const customer = await repository.getById(data.id);
 
         if(!customer) {
-            res.status(400).send({error: 'Usuário não encontrado'});
+            res.status(400).send({error: 'User not found'});
             return;
         }
 

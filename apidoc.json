@@ -1,5 +1,6 @@
 {
     "name": "node-rest-api-scaffold",
     "version": "0.1.0",
-    "description": "This project is an initial NodeJS Rest API scaffold for developers"
+    "description": "This project is an initial NodeJS Rest API scaffold for developers",
+    "url" : ""
 }
