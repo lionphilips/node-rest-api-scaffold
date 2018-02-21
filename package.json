@@ -4,9 +4,16 @@
   "description": "This project is an initial NodeJS Rest API scaffold for developers",
   "main": "src/app.js",
   "scripts": {
-    "start": "node bin/server.js"
+    "start": "node www/server"
   },
-  "keywords": ["nodejs", "rest", "restfull", "api", "jwt", "authentication"],
+  "keywords": [
+    "nodejs",
+    "rest",
+    "restfull",
+    "api",
+    "jwt",
+    "authentication"
+  ],
   "author": "Luis Filipe <lionphilips@gmail.com>",
   "license": "Apache-2.0",
   "dependencies": {
@@ -21,6 +28,7 @@
     "mongoose": "^5.0.6"
   },
   "devDependencies": {
+    "apidoc": "^0.17.6",
     "nodemon": "^1.15.0"
   }
 }
