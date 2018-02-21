@@ -5,7 +5,6 @@ This project has the intention to help developers to build your REST API fastly.
 ### Code Strucutre
 
 - doc/
-- www/
 - src/
     - controllers/
     - models/
@@ -15,6 +14,9 @@ This project has the intention to help developers to build your REST API fastly.
     - validators/
     - app.js
     - config.js
+- test/
+    - config
+- www/
 
 ### Tech
 

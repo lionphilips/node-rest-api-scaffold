@@ -1,0 +1,7 @@
+'use strict'
+
+module.exports = {
+    API_BASE_URL: 'http://localhost:3000',
+    API_USER_TEST_EMAIL: '',
+    API_USER_TEST_PASSWORD: ''
+};
