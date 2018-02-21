@@ -26,6 +26,7 @@ This scaffold uses a number of open source projects to work properly:
 * [JWT Auth](http://mongoosejs.com/) - JsonWebToken implementation for node.js
 * [Sengrid](https://sendgrid.com) - Allows to quickly and easily send emails through SendGrid using nodejs.
 * [apiDoc](http://apidocjs.com/) - Inline Documentation for RESTful web APIs
+* [Mocha](https://mochajs.org/) - simple, flexible, fun javascript test framework for node.js
 
 ### Installation
 
@@ -39,6 +40,14 @@ Install the dependencies and devDependencies and start the server.
 $ cd node-rest-api-scaffold
 $ npm install
 $ node www/server
+```
+
+### Testing
+
+You need to edit the test config file **test/config** and run:
+
+```sh
+$ npm test
 ```
 
 ### Documentation
